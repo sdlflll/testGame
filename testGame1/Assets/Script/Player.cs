@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Inventory = FindObjectOfType<Inventory>();
+    }
+    private void FixedUpdate()
+    {
+        HealthHandler();
     }
     private void OnTake()
     {
@@ -29,6 +34,8 @@ public class Player : MonoBehaviour
                 Inventory.Slots[j] = ObjectPrefab;
                 Inventory.IsFull[j] = true;
                 Inventory.Icons[j] = ObjectPrefab.GetComponent<SpriteRenderer>().sprite;
+                Inventory.SlotsImages[j].GetComponent<Image>().enabled = true;
+                Inventory.SlotsImages[j].GetComponent<Image>().sprite = Inventory.Icons[j];
                 Destroy(_visibleItem);
                 break;
             }
@@ -37,6 +44,14 @@ public class Player : MonoBehaviour
                 print("места нету");
             }
 
+        }
+    }
+
+    private void HealthHandler()
+    {
+        if(Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

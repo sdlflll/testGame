@@ -12,7 +12,7 @@ public class HealthBar : MonoBehaviour
      _player = FindObjectOfType<Player>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         HealthBarHandler();
     }
