@@ -2,7 +2,7 @@
     "name": "New Controls",
     "maps": [
         {
-            "name": "New action map",
+            "name": "Player",
             "id": "c729d012-947a-4e48-aed9-2ba7c3ad250b",
             "actions": [
                 {
@@ -45,6 +45,24 @@
                     "name": "InventoryMeneger",
                     "type": "Button",
                     "id": "3f233ab9-11ee-45f7-9cc3-c301ae5b5fde",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseItem",
+                    "type": "Button",
+                    "id": "aae6448a-79ae-4a3f-af0a-7406c889c646",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DropItem",
+                    "type": "Button",
+                    "id": "f3e0e879-8b4e-48e5-8501-90649c3b1056",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -143,7 +161,7 @@
                 {
                     "name": "",
                     "id": "954ca70e-66ec-4cd6-ae47-b31f09458466",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -153,12 +171,23 @@
                 },
                 {
                     "name": "",
-                    "id": "3cdc5ea6-d6a6-4f19-b9d9-b8768dac363f",
-                    "path": "<Keyboard>/downArrow",
+                    "id": "098c0f83-b986-4288-96c2-7ee7ddeb720f",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InventoryMeneger",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "370b0a02-7ad0-4f03-bc74-04aa08dc1a90",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,13 +22,31 @@ public class Player : MonoBehaviour
     {
         HealthHandler();
     }
+
+    private void OnInventoryMeneger()
+    {
+        Inventory.SlotsMenegerInt++;
+        if(Inventory.SlotsMenegerInt > 2)
+        {
+            Inventory.SlotsMenegerInt = 0;
+        }
+        switch(Inventory.SlotsMenegerInt)
+        {
+            case 0:
+                Inventory.SelectWrapper.transform.DOLocalMoveY(65, 0.3f);
+                break;
+            case 1:
+                Inventory.SelectWrapper.transform.DOLocalMoveY(-0, 0.3f);
+                break;
+            case 2:
+                Inventory.SelectWrapper.transform.DOLocalMoveY(-65, 0.3f);
+                break;
+        }
+    }
+
     private void OnTake()
     {
         if (!_toTake && !_visibleItem) return;
-        Take();
-    }
-    private void Take()
-    {
         for (int j = 0; j < Inventory.Slots.Length; j++)
         {
             if (Inventory.IsFull[j] == false)
@@ -46,6 +65,19 @@ public class Player : MonoBehaviour
                 print("места нету");
             }
 
+        }
+    }
+
+    private void OnDropItem()
+    {
+        if (Inventory.IsFull[Inventory.SlotsMenegerInt] == true)
+        {
+            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt].GetComponent<Item>().ObjectPrefab, gameObject.transform.position, Quaternion.EulerAngles(0, 0, 0));
+            Inventory.Slots[Inventory.SlotsMenegerInt] = null;
+            Inventory.Icons[Inventory.SlotsMenegerInt] = null;
+            Inventory.IsFull[Inventory.SlotsMenegerInt] = false;
+            Inventory.SlotsImages[Inventory.SlotsMenegerInt].GetComponent<Image>().sprite = null;
+            Inventory.SlotsImages[Inventory.SlotsMenegerInt].GetComponent<Image>().enabled = false;
         }
     }
 

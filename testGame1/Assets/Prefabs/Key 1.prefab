@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3692547800222347958}
   - component: {fileID: 3692547800222347957}
   - component: {fileID: 3692547800222347954}
-  - component: {fileID: 7373452655668865544}
+  - component: {fileID: 6826562737288145511}
   m_Layer: 0
-  m_Name: Key
+  m_Name: Key 1
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanTake: 0
   ItemName: "\u041A\u043B\u044E\u0447"
-  ObjectPrefab: {fileID: 3692547800222347956, guid: f01669955b149e5428b065ca35aa5361, type: 3}
---- !u!95 &7373452655668865544
+  ObjectPrefab: {fileID: 3692547800222347956, guid: 55ce35afc96ab0e4c842dbdd906a0961, type: 3}
+--- !u!95 &6826562737288145511
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0

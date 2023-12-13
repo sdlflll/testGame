@@ -7,4 +7,6 @@ public class Item : MonoBehaviour
     public bool CanTake;
     public string ItemName;
     public GameObject ObjectPrefab;
+
+
 }

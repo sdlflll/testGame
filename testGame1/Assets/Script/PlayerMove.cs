@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using DG.Tweening.Core.Easing;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer _playerSpriteRotate;
     private Vector2 _direction;
     private float _moveSpeed = 2;
-    private float _dashForce = 500;
+    private float _dashForce = 400;
 
     private void Awake()
     {
