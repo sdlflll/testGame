@@ -6,7 +6,7 @@ using DG.Tweening.Core.Easing;
 
 public class PlayerMove : MonoBehaviour
 {
-    public InputAction PlayerMainControls;
+    private Player PlayerMainControls;
     private Rigidbody2D _rb;
     private SpriteRenderer _playerSpriteRotate;
     private Vector2 _direction;

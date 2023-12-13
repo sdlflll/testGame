@@ -1,9 +1,11 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public InputAction PlayerMainControls;
     public Inventory Inventory;
     public GameObject _visibleItem;
     [SerializeField] private float _health = 100;
