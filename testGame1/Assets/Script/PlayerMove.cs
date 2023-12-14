@@ -1,15 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
 
 public class PlayerMove : MonoBehaviour
 {
+    public float MoveSpeed = 4;
     private Player PlayerMainControls;
     private Rigidbody2D _rb;
     private SpriteRenderer _playerSpriteRotate;
     private Vector2 _direction;
-    private float _moveSpeed = 2;
     private float _dashForce = 400;
+
+    public Vector2 Direction => _direction; 
 
     private void Awake()
     {
@@ -23,20 +26,12 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnMove(InputValue value)
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _moveSpeed = 4;
-        }
-        else if(_rb.velocity == new Vector2(0, 0))
+        if(_rb.velocity == new Vector2(0, 0))
         {
             gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.2f);
         }
-        else
-        {
-            _moveSpeed = 2;
-        }
         _direction = value.Get<Vector2>();
-        _rb.velocity = new Vector2(_direction.x * _moveSpeed, _direction.y * _moveSpeed);
+        _rb.velocity = new Vector2(_direction.x * MoveSpeed, _direction.y * MoveSpeed);
         gameObject.transform.DORotate(new Vector3(_direction.y * 30, _direction.x * 30, 0), 0.2f);
     }
     private void OnDash()
