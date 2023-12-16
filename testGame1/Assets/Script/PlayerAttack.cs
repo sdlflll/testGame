@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
         if (_attackDuration <= 1.5f) return;
         print("атака");
         _attackDuration = 0;
-        if (_playerMove.PlayerSpriteRotate.flipX == false)
+        if (_playerMove.playerSpriteRotate.flipX == false)
         {
             _rightPlayerAttackPS.Play();
             _objectsOnCircle = Physics2D.OverlapCircleAll(new Vector2(transform.position.x + 0.5f, transform.position.y), _attackRadius);

@@ -8,9 +8,9 @@ public class Player : MonoBehaviour, IDamageble
 {
     [SerializeField] private ParticleSystem _getDamagePS;
 
-    public InputAction PlayerMainControls;
+    public InputAction playerMainControls;
     public Inventory Inventory;
-    public GameObject _visibleItem;
+    public GameObject visibleItem;
     private float _playerHealth = 100;
     private bool _toTake;
 
@@ -56,18 +56,18 @@ public class Player : MonoBehaviour, IDamageble
 
     private void OnTake()
     {
-        if (!_toTake && !_visibleItem) return;
+        if (!_toTake && !visibleItem) return;
         for (int j = 0; j < Inventory.Slots.Length; j++)
         {
             if (Inventory.IsFull[j] == false)
             {
-                GameObject ObjectPrefab = _visibleItem.GetComponent<Item>().ObjectPrefab;
+                GameObject ObjectPrefab = visibleItem.GetComponent<Item>().objectPrefab;
                 Inventory.Slots[j] = ObjectPrefab;
                 Inventory.IsFull[j] = true;
                 Inventory.Icons[j] = ObjectPrefab.GetComponent<SpriteRenderer>().sprite;
                 Inventory.SlotsImages[j].GetComponent<Image>().enabled = true;
                 Inventory.SlotsImages[j].GetComponent<Image>().sprite = Inventory.Icons[j];
-                Destroy(_visibleItem);
+                Destroy(visibleItem);
                 break;
             }
             else
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour, IDamageble
     {
         if (Inventory.IsFull[Inventory.SlotsMenegerInt] == true)
         {
-            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt].GetComponent<Item>().ObjectPrefab, gameObject.transform.position, Quaternion.EulerAngles(0, 0, 0));
+            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt].GetComponent<Item>().objectPrefab, gameObject.transform.position, Quaternion.EulerAngles(0, 0, 0));
             Inventory.Slots[Inventory.SlotsMenegerInt] = null;
             Inventory.Icons[Inventory.SlotsMenegerInt] = null;
             Inventory.IsFull[Inventory.SlotsMenegerInt] = false;
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour, IDamageble
         if (collision.gameObject.tag == "Item" && _toTake == false)
         {
             _toTake = true;
-            _visibleItem = collision.gameObject;
+            visibleItem = collision.gameObject;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour, IDamageble
         if (collision.gameObject.tag == "Item" && _toTake == true)
         {
             _toTake = false;
-            _visibleItem = null;
+            visibleItem = null;
 
         }
     }

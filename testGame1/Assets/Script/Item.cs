@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public bool CanTake;
-    public string ItemName;
-    public GameObject ObjectPrefab;
+    public bool canTake;
+    public string itemName;
+    public GameObject objectPrefab;
 
 
 }

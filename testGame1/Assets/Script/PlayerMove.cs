@@ -12,9 +12,9 @@ public class PlayerMove : MonoBehaviour
     private Vector2 _direction;
     private float _dashForce = 400;
 
-    public SpriteRenderer PlayerSpriteRotate => _playerSpriteRotate;
+    public SpriteRenderer playerSpriteRotate => _playerSpriteRotate;
 
-    public Vector2 Direction => _direction; 
+    public Vector2 direction => _direction; 
 
     private void Awake()
     {

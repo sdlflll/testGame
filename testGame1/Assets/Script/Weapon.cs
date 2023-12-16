@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : Item
-{
-    public bool LongRange;
-    public float WeaponAttackRange;
+{                    
+    public bool longRange;
+    public float weaponAttackRange;
     public float damage;
 }

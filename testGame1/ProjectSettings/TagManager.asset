@@ -46,12 +46,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: New Layer 1
+  - name: background
     uniqueID: 3031667297
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer 2
+  - name: decorations
+    uniqueID: 1474731323
+    locked: 0
+  - name: Player
     uniqueID: 3243170569
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 3492133309
     locked: 0

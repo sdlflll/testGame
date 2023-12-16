@@ -15,7 +15,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void FixedUpdate()
     {
-        SetRun(true ? _playerMove.Direction != new Vector2(0,0): false);
+        SetRun(true ? _playerMove.direction != new Vector2(0,0): false);
     }
 
     private void SetRun(bool Run)
