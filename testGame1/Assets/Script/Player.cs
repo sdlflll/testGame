@@ -1,11 +1,13 @@
 using DG.Tweening;
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageble
 {
+    [SerializeField] private ParticleSystem _getDamagePS;
+
     public InputAction PlayerMainControls;
     public Inventory Inventory;
     public GameObject _visibleItem;
@@ -25,9 +27,10 @@ public class Player : MonoBehaviour, IDamageble
         HealthHandler();
     }
 
-    public void GetDamage(float Health, float Damage)
+    public void GetDamage(float Damage)
     {
-        Health -= Damage;
+        _getDamagePS.Play();
+        _playerHealth -= Damage;
     }
 
     private void OnInventoryMeneger()
@@ -117,14 +120,5 @@ public class Player : MonoBehaviour, IDamageble
 
         }
     }
-
-    public void GetDamage()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void GetDamage(float Health, float Damage)
-    {
-        throw new System.NotImplementedException();
-    }
+    
 }

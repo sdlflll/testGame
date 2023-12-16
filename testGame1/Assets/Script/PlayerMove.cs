@@ -5,12 +5,14 @@ using UnityEditor.Experimental.GraphView;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float MoveSpeed = 4;
-    private Player PlayerMainControls;
+    private float _moveSpeed = 4;
+
     private Rigidbody2D _rb;
     private SpriteRenderer _playerSpriteRotate;
     private Vector2 _direction;
     private float _dashForce = 400;
+
+    public SpriteRenderer PlayerSpriteRotate => _playerSpriteRotate;
 
     public Vector2 Direction => _direction; 
 
@@ -31,7 +33,7 @@ public class PlayerMove : MonoBehaviour
             gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.2f);
         }
         _direction = value.Get<Vector2>();
-        _rb.velocity = new Vector2(_direction.x * MoveSpeed, _direction.y * MoveSpeed);
+        _rb.velocity = new Vector2(_direction.x * _moveSpeed, _direction.y * _moveSpeed);
         gameObject.transform.DORotate(new Vector3(_direction.y * 30, _direction.x * 30, 0), 0.2f);
     }
     private void OnDash()

@@ -5,22 +5,49 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private float _attackRadius = 1;
-    private float _attackDamage = 20;
+    [SerializeField] private ParticleSystem _leftPlayerAttackPS;
+    [SerializeField] private ParticleSystem _rightPlayerAttackPS;
 
-    void OnAttack()
+    private float _attackDuration;
+    private float _attackRadius = 0.3f;
+    private float _attackDamage = 10;
+    private Collider2D[] _objectsOnCircle;
+    private PlayerMove _playerMove;
+ 
+    private void Awake()
     {
-        Collider2D[] ObjectsOnCircle = Physics2D.OverlapCircleAll(transform.position, _attackRadius);
-        for(int i = 0; i < ObjectsOnCircle.Length; i++)
+        _playerMove = GetComponent<PlayerMove>();
+    }
+    private void FixedUpdate()
+    {
+        _attackDuration += Time.deltaTime;
+    }
+    private void OnAttack()
+    {
+        if (_attackDuration <= 1.5f) return;
+        print("атака");
+        _attackDuration = 0;
+        if (_playerMove.PlayerSpriteRotate.flipX == false)
         {
-           /* if (ObjectsOnCircle[i].gameObject.)
+            _rightPlayerAttackPS.Play();
+            _objectsOnCircle = Physics2D.OverlapCircleAll(new Vector2(transform.position.x + 0.5f, transform.position.y), _attackRadius);
+        }
+        else
+        {
+            _leftPlayerAttackPS.Play();
+            _objectsOnCircle = Physics2D.OverlapCircleAll(new Vector2(transform.position.x - 0.5f, transform.position.y), _attackRadius);
+        }
+        for (int i = 0; i < _objectsOnCircle.Length; i++) //цикл проверяет все элементы в массиве objectsOnCircle, далее делает проверку на имения у елемента массива компонента "Enemy", если условие выплняется, то призывается функция GetDamage
+        {
+            print(_objectsOnCircle[i].gameObject.name);
+
+            if (_objectsOnCircle[i].gameObject.GetComponent<Enemy>() && _objectsOnCircle[i].isTrigger == false)
             {
-                ObjectsOnCircle[i].GetComponent<Damageble>().
-            }*/
+                print(_attackDamage);
+                _objectsOnCircle[i].GetComponent<Enemy>().GetDamage(_attackDamage);
+            }
         }
 
-        
     }
-
 
 }
