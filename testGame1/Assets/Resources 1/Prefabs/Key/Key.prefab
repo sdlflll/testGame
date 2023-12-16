@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3692547800222347958}
   - component: {fileID: 3692547800222347957}
   - component: {fileID: 3692547800222347954}
-  - component: {fileID: 6826562737288145511}
+  - component: {fileID: 7373452655668865544}
   m_Layer: 0
-  m_Name: Key 1
+  m_Name: Key
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.45}
+  m_Size: {x: 1.99, y: 0.45}
   m_EdgeRadius: 0
 --- !u!114 &3692547800222347954
 MonoBehaviour:
@@ -174,10 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f930766f1b0b1a469f39b7e9bb7d763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanTake: 0
-  ItemName: "\u041A\u043B\u044E\u0447"
-  ObjectPrefab: {fileID: 3692547800222347956, guid: 55ce35afc96ab0e4c842dbdd906a0961, type: 3}
---- !u!95 &6826562737288145511
+  canTake: 0
+  itemName: 
+  objectPrefab: {fileID: 3692547800222347956, guid: f01669955b149e5428b065ca35aa5361, type: 3}
+--- !u!95 &7373452655668865544
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
