@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageble
 {
     public bool PlayerInZone;
-    public float EnemyHeart = 30;
+    public float EnemyHeart = 50;
     public float EnemyAttack = 15;
-    private float _enemySpeed = 5;
+    private float _enemySpeed = 2.5f;
     private Vector2 _playerPosition;
     private SpriteRenderer _enemySpriteRotate;
+
+
     void Start()
     {
         _enemySpriteRotate = GetComponent<SpriteRenderer>();
@@ -49,10 +51,6 @@ public class Enemy : MonoBehaviour
         {
             PlayerInZone = true;
         }
-        else
-        {
-            PlayerInZone = false;
-        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -77,7 +75,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-
-
+    public void GetDamage()
+    {
+        throw new System.NotImplementedException();
+    }
 }

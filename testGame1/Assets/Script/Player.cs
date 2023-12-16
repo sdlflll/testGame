@@ -4,24 +4,30 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageble
 {
     public InputAction PlayerMainControls;
     public Inventory Inventory;
     public GameObject _visibleItem;
-    [SerializeField] private float _health = 100;
+    private float _playerHealth = 100;
     private bool _toTake;
 
                                     
-    public float Health => _health;
+    public float Health => _playerHealth;
 
     private void Awake()
     {
+        
         Inventory = FindObjectOfType<Inventory>();
     }
     private void FixedUpdate()
     {
         HealthHandler();
+    }
+
+    public void GetDamage(float Health, float Damage)
+    {
+        Health -= Damage;
     }
 
     private void OnInventoryMeneger()
@@ -92,6 +98,8 @@ public class Player : MonoBehaviour
 
 
 
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Item" && _toTake == false)
@@ -108,5 +116,15 @@ public class Player : MonoBehaviour
             _visibleItem = null;
 
         }
+    }
+
+    public void GetDamage()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GetDamage(float Health, float Damage)
+    {
+        throw new System.NotImplementedException();
     }
 }
