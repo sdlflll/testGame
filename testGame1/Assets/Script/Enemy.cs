@@ -35,6 +35,14 @@ public class Enemy : MonoBehaviour
             _enemySpriteRotate.flipX = true;
         }
     }
+    private void AttackPlayer()
+    {
+        float duration = Time.deltaTime;
+        if(duration >= 5)
+        {
+            
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -61,7 +69,13 @@ public class Enemy : MonoBehaviour
 
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
 
+        }
+    }
 
 
 
