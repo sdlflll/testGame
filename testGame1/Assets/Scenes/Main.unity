@@ -346,7 +346,6 @@ MonoBehaviour:
   - {fileID: 1567335475031341780, guid: 479f59c08b329f24cac6bb8e53079f83, type: 3}
   - {fileID: 6503634189781450584, guid: c639202ea7d63ee4592e617c2b90e525, type: 3}
   - {fileID: 9005197749363351256, guid: 39cba2719e7ea5e44b458b47f2113280, type: 3}
-  _corridor: {fileID: 2141063462466257859, guid: 4e921a547e3c6d4499140f8fd4b84c3b, type: 3}
   _exitRoom: {fileID: 6037755344392769062, guid: 692cc1ed5a17e8a4491a81497827f7e5, type: 3}
 --- !u!1 &385526411
 GameObject:
