@@ -25,7 +25,6 @@ public class PlayerAttack : MonoBehaviour
     private void OnAttack()
     {
         if (_attackDuration <= 1.5f) return;
-        print("атака");
         _attackDuration = 0;
         if (_playerMove.playerSpriteRotate.flipX == false)
         {
