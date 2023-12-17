@@ -51,32 +51,8 @@ public class MapGeneration : MonoBehaviour
 
         Instantiate(_allStartRooms[_randomStartRoom], new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), _grid.transform);
 
-        switch (_randomStartRoom) {
-            case 1:
-
-
-
-
-                break;
-
-            case 2:
-
-
-
-                break;
-
-            case 3:
-
-
-
-                break;
-
-            case 4:
-
-
-
-                break;
-
+        for (int i = 0; i < _randomRoomsQuantity; i++)
+        {
         }
     }
    
