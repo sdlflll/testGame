@@ -5,7 +5,7 @@ using UnityEditor.Experimental.GraphView;
 
 public class PlayerMove : MonoBehaviour
 {
-    private float _moveSpeed = 4;
+    private float _moveSpeed = 7;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _playerSpriteRotate;

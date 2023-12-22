@@ -82,7 +82,7 @@ public class Player : MonoBehaviour, IDamageble
     {
         if (Inventory.IsFull[Inventory.SlotsMenegerInt] == true)
         {
-            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt].GetComponent<Item>().objectPrefab, gameObject.transform.position, Quaternion.EulerAngles(0, 0, 0));
+            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt].GetComponent<Item>().objectPrefab, gameObject.transform.position, new Quaternion(0,0,0,0));
             Inventory.Slots[Inventory.SlotsMenegerInt] = null;
             Inventory.Icons[Inventory.SlotsMenegerInt] = null;
             Inventory.IsFull[Inventory.SlotsMenegerInt] = false;

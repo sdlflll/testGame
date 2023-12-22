@@ -2,21 +2,18 @@ using UnityEngine;
 
 public class MapGeneration : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _allStartRooms;
-    [SerializeField] private GameObject[] _allRooms;
+    /*[SerializeField] private GameObject[] _allStartRooms = new GameObject[4];
+    [SerializeField] private GameObject[] _allRooms = new GameObject[12];
+    [SerializeField] private GameObject[] _allClosingRooms = new GameObject[4];
     [SerializeField] private GameObject _exitRoom;
-    private bool _roomGenerationLogic;
 
+    private int _closingRoomsQuantity;
     private int _randomStartRoom;
     private int _randomRoomsQuantity;
     private int[] _roomsType;
 
+
     private GameObject _grid;
-
-
-    //rotation
-
-    private int _randomEndRoomRotation;
 
     private void Start()
     {
@@ -26,34 +23,32 @@ public class MapGeneration : MonoBehaviour
     
     private void RoomGenrationLogic()
     {
-        //Type
+        //SetType
         _randomStartRoom = Random.Range(0, _allStartRooms.Length);
 
 
-        //Quantity
-        _randomRoomsQuantity = Random.Range(2, 6);
+        //SetQuantity
+        _randomRoomsQuantity = Random.Range(2, 10);
+
+        //Set roomsType lenght
         _roomsType = new int[_randomRoomsQuantity];
-        //rotation
-
-        _randomEndRoomRotation = Random.Range(0, 5);
-
         for(int i = 0; i < _randomRoomsQuantity; i++)
         {
-            _roomsType[i] = Random.Range(0, 5);
+            _roomsType[i] = Random.Range(0, 13);
         }
 
-        print("StartRoomType = " + _randomStartRoom + ";" +
-            "" + "EndRoomRotation: " + _randomEndRoomRotation + ";" +
-            "" + "RoomsQuantity: " + _randomRoomsQuantity + ";");
-
-        for (int i = 0; i < _randomRoomsQuantity; i++) { print("#" + i +" RoomType: " + _roomsType[i] + ";"); }
-
-
-        Instantiate(_allStartRooms[_randomStartRoom], new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), _grid.transform);
-
-        for (int i = 0; i < _randomRoomsQuantity; i++)
+        //SetClosingRoomsQuantity
+        for (int i = 0; i < _roomsType.Length; i++)
         {
+            if (_allRooms[_roomsType[i]].GetComponent<RoomsData>().roomExits >= 1)                                     
+            {
+                print("кол-во выходов -- " + _allRooms[_roomsType[i]].GetComponent<RoomsData>().roomExits);
+                _closingRoomsQuantity += _allRooms[_roomsType[i]].GetComponent<RoomsData>().roomExits;
+            }
         }
-    }
+
+        //sum
+        int SumRooms = 1 + _roomsType.Length + _closingRoomsQuantity;
+    }*/
    
 }
