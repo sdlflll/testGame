@@ -12,6 +12,7 @@ TagManager:
   - Damage Volume
   - New tag
   - Item
+  - Grid
   layers:
   - Default
   - TransparentFX
