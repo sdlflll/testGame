@@ -1866,7 +1866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1732744380534871442, guid: af6c2a09b7a88b545b8bedb0aaec9569, type: 3}
       propertyPath: orthographic size
-      value: 5.52
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 1732744380534871442, guid: af6c2a09b7a88b545b8bedb0aaec9569, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -1969,7 +1969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7587831967220409540, guid: ebff035a47085384e9c69895f3c9d2ae, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 5.52
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7587831967220409541, guid: ebff035a47085384e9c69895f3c9d2ae, type: 3}
       propertyPath: m_RootOrder

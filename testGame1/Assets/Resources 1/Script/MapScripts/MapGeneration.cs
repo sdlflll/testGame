@@ -17,7 +17,7 @@ public class MapGeneration : MonoBehaviour
 
     private void Start()
     {
-        _spawnedRooms = new RoomsData[11, 11];
+        _spawnedRooms = new RoomsData[5, 5];
         _grid = GameObject.FindGameObjectWithTag("Grid").transform;
         RoomsData StartRoom = Instantiate(_startRoom, transform.parent = _grid);
         StartRoom.transform.position = Vector2.zero;
@@ -25,8 +25,8 @@ public class MapGeneration : MonoBehaviour
         StartRoom.doorDown.SetActive(true);
         StartRoom.doorLeft.SetActive(true);
         StartRoom.doorRight.SetActive(true);
-        _spawnedRooms[5, 5] = StartRoom;
-        for (int i = 0; i < 12; i++)
+        _spawnedRooms[3, 3] = StartRoom;
+        for (int i = 0; i < 6; i++)
         {
             PlaceOneRoom();
 
@@ -72,7 +72,7 @@ public class MapGeneration : MonoBehaviour
             Vector2Int newRoomPosition = vacantPlaces1.ElementAt(Random.Range(0, vacantPlaces1.Count));
             if (ConnectToSomething(newRoom, newRoomPosition))
             {
-                newRoom.transform.position = new Vector2(newRoomPosition.x - 5, newRoomPosition.y - 5) * 11;
+                newRoom.transform.position = new Vector2(newRoomPosition.x - 3, newRoomPosition.y - 3) * 11;
                 _spawnedRooms[newRoomPosition.x, newRoomPosition.y] = newRoom;
                 break;
             }
