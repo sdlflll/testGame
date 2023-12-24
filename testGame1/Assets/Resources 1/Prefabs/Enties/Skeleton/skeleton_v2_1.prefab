@@ -30,8 +30,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 573640763313603426}
-  m_RootOrder: 0
+  m_Father: {fileID: 2193774919316843619}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &573640762739834586
 ParticleSystem:
@@ -4822,7 +4822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573640763313603426}
   - component: {fileID: 573640763313603425}
-  - component: {fileID: 573640763313603427}
+  - component: {fileID: 5290960895090027973}
   - component: {fileID: 573640763313603424}
   - component: {fileID: 573640763313603428}
   - component: {fileID: 573640763313603429}
@@ -4846,9 +4846,7 @@ Transform:
   m_LocalScale: {x: 6.945991, y: 6.945991, z: 6.945991}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 573640762739834584}
-  - {fileID: 573640763922505890}
-  - {fileID: 573640763525636415}
+  - {fileID: 2193774919316843619}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4904,7 +4902,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &573640763313603427
+--- !u!114 &5290960895090027973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4913,12 +4911,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 573640763313603359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91515c5f84ac9884b881406a23db4d7d, type: 3}
+  m_Script: {fileID: 11500000, guid: e4702c3eba3f21f43a27c007c52f4e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftAttackPS: {fileID: 573640762739834586}
-  _rightAttackPS: {fileID: 573640763922505888}
-  _getDamagePS: {fileID: 573640763525636413}
+  leftAttackPS: {fileID: 0}
+  rightAttackPS: {fileID: 0}
+  getDamagePS: {fileID: 0}
+  enemyHeart: 0
+  minEnemyAttack: 0
+  maxEnemyAttack: 0
+  enemySpeed: 0
+  enemyAttackDuration: 0
+  playerInZone: 0
+  enemySpriteRotate: {fileID: 0}
+  player: {fileID: 0}
 --- !u!95 &573640763313603424
 Animator:
   serializedVersion: 5
@@ -5027,13 +5033,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573640763525636412}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 573640763313603426}
-  m_RootOrder: 2
+  m_Father: {fileID: 2193774919316843619}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &573640763525636413
 ParticleSystem:
@@ -9844,8 +9850,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 573640763313603426}
-  m_RootOrder: 1
+  m_Father: {fileID: 2193774919316843619}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &573640763922505888
 ParticleSystem:
@@ -14626,3 +14632,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &8629439399615650174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2193774919316843619}
+  m_Layer: 0
+  m_Name: Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2193774919316843619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629439399615650174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 573640763525636415}
+  - {fileID: 573640762739834584}
+  - {fileID: 573640763922505890}
+  m_Father: {fileID: 573640763313603426}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageble
 {
-    [SerializeField] private ParticleSystem _getDamagePS;
+    private ParticleSystem _getDamagePS;
 
     public InputAction playerMainControls;
     public Inventory Inventory;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IDamageble
 
     private void Awake()
     {
-        
+        _getDamagePS = transform.GetChild(3).gameObject.GetComponent<ParticleSystem>();
         Inventory = FindObjectOfType<Inventory>();
     }
     private void FixedUpdate()

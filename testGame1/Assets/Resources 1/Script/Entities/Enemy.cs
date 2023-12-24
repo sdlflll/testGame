@@ -1,105 +1,125 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour, IDamageble
+public abstract class Enemy : MonoBehaviour, IDamageble
 {
-    [SerializeField] private ParticleSystem _leftAttackPS;
-    [SerializeField] private ParticleSystem _rightAttackPS;
-    [SerializeField] private ParticleSystem _getDamagePS;
 
-    private float _enemyHeart = 50;
-    private float _enemyAttack = 15;
-    private float _enemySpeed = 2.5f;
-    private float _duration;
-    private bool _playerInZone;
-    private Vector2 _playerPosition;
-    private SpriteRenderer _enemySpriteRotate;
-    private Player _player;
+    public UnityEvent OnDamageEvent = new UnityEvent();
 
-    void Start()
+    public EnemyData enemyData;
+    public ParticleSystem leftAttackPS;
+    public ParticleSystem rightAttackPS;
+    public ParticleSystem getDamagePS;
+
+    public float enemyHeart;
+    public float enemyAttackDamage;
+    public float enemySpeed;
+    public float enemyAttackDuration;
+    public bool playerInZone;
+    public bool playerInAttackZone;
+    public SpriteRenderer enemySpriteRotate;
+    public Player player;
+    public Animator enemyAnimator;
+    public Enemy enemy;
+
+    void Awake()
     {
-        _enemySpriteRotate = GetComponent<SpriteRenderer>();
+        enemy = gameObject.GetComponent<Enemy>();
+        enemyAnimator = GetComponent<Animator>();
+        leftAttackPS = transform.GetChild(0).transform.GetChild(1).GetComponent<ParticleSystem>();
+        rightAttackPS = transform.GetChild(0).transform.GetChild(2).GetComponent<ParticleSystem>();
+        getDamagePS = transform.GetChild(0).transform.GetChild(0).GetComponent<ParticleSystem>();
+        player = FindObjectOfType<Player>().GetComponent<Player>();
+
+        enemyHeart = enemyData.enemyHeart;
+        enemyAttackDamage = enemyData.enemyAttackDamage;
+        enemySpeed = enemyData.enemySpeed;
+
+        Initialize();
     }
 
-    void FixedUpdate()
-    {
-        DeathHendler();
-        if (_playerInZone) FindPlayer(); AttackPlayer();
-        
-    }
+    protected abstract void Initialize();
 
     public void GetDamage(float Damage)
     {
-        _getDamagePS.Play();
-        _enemyHeart -= Damage;
+        OnDamageEvent.Invoke();
+        getDamagePS.Play();
+        enemyHeart -= Damage;
+        DeathHendler(enemyHeart);
+    }
+    public void PlayDamageAnimation()
+    {
+        enemyAnimator.SetTrigger("Damage");
+
     }
 
-    private void DeathHendler()
+    public void DeathHendler(float EnemyHealth)
     {
-        if(_enemyHeart <= 0)
+        if(EnemyHealth <= 0)
         {
             Destroy(gameObject);
         }
     }
-    private void FindPlayer()
+
+
+    public void FindPlayer(SpriteRenderer EnemySpriteRotate, float EnemySpeed)
     {
-        float Step = Time.deltaTime * _enemySpeed; // скорость передвижения врага к игроку 
-        _playerPosition = FindObjectOfType<Player>().transform.position;
-        _enemySpriteRotate.flipX = true ? _playerPosition.x < transform.localPosition.x : false;
-        gameObject.transform.position = Vector2.MoveTowards(transform.position, _playerPosition, Step);
-    }
-    private void EnemyAttackAnimation()
-    {
-        if (_enemySpriteRotate.flipX == true) _leftAttackPS.Play();
-        else
-        {
-            _rightAttackPS.Play();
-            print("правой бей");
-        } 
-    }
-    private void AttackPlayer()
-    {
-        _duration += Time.deltaTime;
-        if(_duration >= 2 && _player != null)
-        {
-            EnemyAttackAnimation();
-            _player.GetDamage(_enemyAttack);
-            _duration = 0;
-        }
+       Vector2 PlayerPosition = player.transform.position;
+
+        float Step = Time.deltaTime * EnemySpeed; // скорость передвижения врага к игроку 
+        EnemySpriteRotate.flipX = true ? PlayerPosition.x < transform.localPosition.x : false;
+        gameObject.transform.position = Vector2.MoveTowards(transform.position, PlayerPosition, Step);
     }
 
-    //PlayerDetector... хе-хе
+
+    public void EnemyAttackAnimation(SpriteRenderer EnemySpriteRotate, ParticleSystem LeftAttackPS, ParticleSystem RightAttackPS)
+    {
+        if (EnemySpriteRotate.flipX == true) LeftAttackPS.Play();
+        else RightAttackPS.Play(); 
+    }
+    public bool AttackPlayer(float EnemyAttackDamage, SpriteRenderer EnemySpriteRotate, ParticleSystem LeftAttackPS, ParticleSystem RightAttackPS, float EnemyAttackDuration, Player Player, bool AttackZone)
+    {
+        if (AttackZone == true)
+        {
+            EnemyAttackAnimation(EnemySpriteRotate, LeftAttackPS, RightAttackPS);
+            Player.GetDamage(EnemyAttackDamage);
+            return true;
+        }
+        return false;
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _playerInZone = true;
+            playerInZone = true;
+            player = collision.gameObject.GetComponent<Player>();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _playerInZone = false;
+            playerInZone = false;
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            _player = collision.gameObject.GetComponent<Player>();
+            playerInAttackZone = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _player = null;
+            playerInAttackZone = false;
         }
     }
+
+
+    //PlayerDetector... хе-хе
 
 }

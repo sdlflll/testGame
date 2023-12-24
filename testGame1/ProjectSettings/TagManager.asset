@@ -50,6 +50,9 @@ TagManager:
   - name: background
     uniqueID: 3031667297
     locked: 0
+  - name: bgUp
+    uniqueID: 977398107
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

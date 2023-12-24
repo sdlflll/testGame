@@ -7,9 +7,11 @@ using static UnityEditor.Recorder.OutputPath;
 
 public class MapGeneration : MonoBehaviour
 {
-    public RoomsData _room;
+    public RoomsData room;
+    public RoomsData enemyRoom;
+    public RoomsData weaponRoom;
+    public RoomsData startRoom;
     private RoomsData[,] _spawnedRooms;
-    [SerializeField] private RoomsData _startRoom;
 
 
     private Transform _grid;
@@ -19,19 +21,19 @@ public class MapGeneration : MonoBehaviour
     {
         _spawnedRooms = new RoomsData[5, 5];
         _grid = GameObject.FindGameObjectWithTag("Grid").transform;
-        RoomsData StartRoom = Instantiate(_startRoom, transform.parent = _grid);
+        RoomsData StartRoom = Instantiate(startRoom, transform.parent = _grid);
         StartRoom.transform.position = Vector2.zero;
         StartRoom.doorUp.SetActive(true);
         StartRoom.doorDown.SetActive(true);
         StartRoom.doorLeft.SetActive(true);
         StartRoom.doorRight.SetActive(true);
         _spawnedRooms[3, 3] = StartRoom;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 5; i++)
         {
             PlaceOneRoom();
 
         }
-        ConnectToSomething(StartRoom, new Vector2Int(5, 5));
+        ConnectToSomething(StartRoom, new Vector2Int(3, 3));
     }
 
     private void PlaceOneRoom()
@@ -59,7 +61,7 @@ public class MapGeneration : MonoBehaviour
                 if (y < maxY && _spawnedRooms[x, y + 1] == null) vacantPlaces1.Add(new Vector2Int(x, y + 1));
             }
         }
-        RoomsData newRoom = Instantiate(_room, transform.parent = _grid);
+        RoomsData newRoom = Instantiate(Random.Range(0, 8) > 2 ? enemyRoom : room, transform.parent = _grid);
         newRoom.doorUp.SetActive(true);
         newRoom.doorDown.SetActive(true);
         newRoom.doorLeft.SetActive(true);
@@ -106,24 +108,36 @@ public class MapGeneration : MonoBehaviour
 
         if (selectedDirection == Vector2Int.up)
         {
-            room.doorUp.SetActive(false);
-            selectedRoom.doorDown.SetActive(false);
-            
+            room.doorUp.transform.GetChild(0).gameObject.SetActive(false);
+            selectedRoom.doorDown.transform.GetChild(0).gameObject.SetActive(false);
+
+            room.doorUp.transform.GetChild(1).gameObject.SetActive(true);
+            selectedRoom.doorDown.transform.GetChild(1).gameObject.SetActive(true);
+
         }
         else if (selectedDirection == Vector2Int.down)
         {
-            room.doorDown.SetActive(false);
-            selectedRoom.doorUp.SetActive(false);
+            room.doorDown.transform.GetChild(0).gameObject.SetActive(false);
+            selectedRoom.doorUp.transform.GetChild(0).gameObject.SetActive(false);
+
+            room.doorDown.transform.GetChild(1).gameObject.SetActive(true);
+            selectedRoom.doorUp.transform.GetChild(1).gameObject.SetActive(true);
         }
         else if (selectedDirection == Vector2Int.right)
         {
-            room.doorRight.SetActive(false);
-            selectedRoom.doorLeft.SetActive(false);
+            room.doorRight.transform.GetChild(0).gameObject.SetActive(false);
+            selectedRoom.doorLeft.transform.GetChild(0).gameObject.SetActive(false);
+
+            room.doorRight.transform.GetChild(1).gameObject.SetActive(true);
+            selectedRoom.doorLeft.transform.GetChild(1).gameObject.SetActive(true);
         }
         else if (selectedDirection == Vector2Int.left)
         {
-            room.doorLeft.SetActive(false);
-            selectedRoom.doorRight.SetActive(false);
+            room.doorLeft.transform.GetChild(0).gameObject.SetActive(false);
+            selectedRoom.doorRight.transform.GetChild(0).gameObject.SetActive(false);
+
+            room.doorLeft.transform.GetChild(1).gameObject.SetActive(true);
+            selectedRoom.doorRight.transform.GetChild(1).gameObject.SetActive(true);
         }
         return true;
     }
