@@ -3,6 +3,7 @@ using UnityEngine.Playables;
 
 public class RoomsData : MonoBehaviour
 {
+    public CanvasRoomSprite mySprite;
     public GameObject doorUp;
     public GameObject doorDown;
     public GameObject doorRight;

@@ -1,9 +1,6 @@
 using Cinemachine;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class RoomScript : MonoBehaviour
 {
@@ -14,6 +11,7 @@ public class RoomScript : MonoBehaviour
     private Door _doorRight;
     private Door _doorUp;
     private Door _doorDown;
+   
 
     //camera
     private CinemachineVirtualCamera _camera;
@@ -24,7 +22,7 @@ public class RoomScript : MonoBehaviour
     public int enemiesCount;
     private List<Enemy> _enemies;
 
-    private void Awake()
+    private void Start()
     {
         _thisRoom = gameObject.GetComponent<RoomScript>();
        _toSpawnEnemys = true;
@@ -76,16 +74,29 @@ public class RoomScript : MonoBehaviour
 
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player") 
+        {
+            OnExitRoom();
+        }
+    }
 
     private void OnEnterRoom(CinemachineVirtualCamera Camera, Transform LookAt)
     {
         Camera.LookAt = LookAt;
         Camera.Follow = LookAt;
+        _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.5f);
+    }
+    private void OnExitRoom()
+    {
+        _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.15f);
     }
     private void OnEnterRoom(CinemachineVirtualCamera Camera, Transform LookAt, Enemy Enemy)
     {
         Camera.LookAt = LookAt;
         Camera.Follow = LookAt;
+        _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.5f);
         if (_toSpawnEnemys == false) return;
         enemiesCount = Random.Range(3, 6);
         _enemies = new List<Enemy>(enemiesCount);

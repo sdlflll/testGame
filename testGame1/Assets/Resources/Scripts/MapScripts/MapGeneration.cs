@@ -1,41 +1,46 @@
-using Newtonsoft.Json.Bson;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using static UnityEditor.Recorder.OutputPath;
 
 public class MapGeneration : MonoBehaviour
 {
+    public CanvasRoomSprite _roomSprite;
     public RoomsData room;
     public RoomsData enemyRoom;
     public RoomsData weaponRoom;
     public RoomsData startRoom;
     private RoomsData[,] _spawnedRooms;
 
+    private CanvasMapGeneration _canvas;
 
     private Transform _grid;
 
 
     private void Start()
     {
+        _canvas = FindObjectOfType<CanvasMapGeneration>();
         _spawnedRooms = new RoomsData[5, 5];
         _grid = GameObject.FindGameObjectWithTag("Grid").transform;
         RoomsData StartRoom = Instantiate(startRoom, transform.parent = _grid);
         StartRoom.transform.position = Vector2.zero;
-        _spawnedRooms[3, 3] = StartRoom;
-        for (int i = 0; i < 5; i++)
+        CanvasRoomSprite StartRoomSprite = Instantiate(_roomSprite, transform.parent = _canvas.canvas);
+        StartRoomSprite.spriteRoomType = StartRoom.roomType;
+        StartRoomSprite.transform.localPosition = _grid.position;
+        StartRoom.mySprite = StartRoomSprite;
+
+        _spawnedRooms[2, 2] = StartRoom;
+        for (int i = 0; i < Random.RandomRange(4,7); i++)
         {
             PlaceOneRoom();
-
         }
-        ConnectToSomething(StartRoom, new Vector2Int(3, 3));
+        ConnectToSomething(StartRoom, new Vector2Int(2, 2));
     }
 
     private void PlaceOneRoom()
     {
         HashSet<Vector2Int> vacantPlaces1 = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> vacantSpritePlaces = new HashSet<Vector2Int>();
         for(int x = 0; x < _spawnedRooms.GetLength(0); x++)
         {
             for (int y = 0; y < _spawnedRooms.GetLength(1); y++)
@@ -45,25 +50,40 @@ public class MapGeneration : MonoBehaviour
                 int maxX = _spawnedRooms.GetLength(0) - 1;
                 int maxY = _spawnedRooms.GetLength(1) - 1;
 
-                if (x > 0 && _spawnedRooms[x - 1, y] == null) vacantPlaces1.Add(new Vector2Int(x - 1, y));
+                if (x > 0 && _spawnedRooms[x - 1, y] == null) {
+                    vacantPlaces1.Add(new Vector2Int(x - 1, y));
+                };
 
-                if (y > 0 && _spawnedRooms[x, y - 1] == null) vacantPlaces1.Add(new Vector2Int(x, y - 1));
+                if (y > 0 && _spawnedRooms[x, y - 1] == null)
+                {
+                    vacantPlaces1.Add(new Vector2Int(x, y - 1));
+                };
 
-                if (x < maxX && _spawnedRooms[x + 1 , y] == null) vacantPlaces1.Add(new Vector2Int(x + 1 , y));
+                if (x < maxX && _spawnedRooms[x + 1, y] == null) 
+                {
+                    vacantPlaces1.Add(new Vector2Int(x + 1, y));
+                };
 
-                if (y < maxY && _spawnedRooms[x, y + 1] == null) vacantPlaces1.Add(new Vector2Int(x, y + 1));
+                if (y < maxY && _spawnedRooms[x, y + 1] == null) 
+                { 
+                    vacantPlaces1.Add(new Vector2Int(x, y + 1)); 
+                } ;
             }
         }
         RoomsData newRoom = Instantiate(Random.Range(0, 8) > 2 ? enemyRoom : room, transform.parent = _grid);
-
+        CanvasRoomSprite newRoomSprite = Instantiate(_roomSprite, transform.parent = _canvas.canvas);
+        newRoomSprite.spriteRoomType = newRoom.roomType;
+        newRoom.mySprite = newRoomSprite;
         int limit = 500;
 
         while (limit-- > 0)
         {
             Vector2Int newRoomPosition = vacantPlaces1.ElementAt(Random.Range(0, vacantPlaces1.Count));
+            
             if (ConnectToSomething(newRoom, newRoomPosition))
             {
-                newRoom.transform.position = new Vector2(newRoomPosition.x - 3, newRoomPosition.y - 3) * 11;
+                newRoom.transform.position = new Vector2(newRoomPosition.x - 2, newRoomPosition.y - 2) * 11;
+                newRoomSprite.transform.localPosition = new Vector2(newRoomPosition.x - 2, newRoomPosition.y - 2) * 15;
                 _spawnedRooms[newRoomPosition.x, newRoomPosition.y] = newRoom;
                 break;
             }

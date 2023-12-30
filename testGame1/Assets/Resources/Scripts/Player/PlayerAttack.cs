@@ -26,10 +26,13 @@ public class PlayerAttack : MonoBehaviour
     }
     private void OnAttack()
     {
-        if (attackDuration <= 0.5f) return;
+        if (attackDuration <= 0.5f ) return;
         attackDuration = 0;
         OnAttackEvent.Invoke();
         _direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+        Vector2 shootDirection = new Vector2(inputX, inputY).normalized;
         Ball NewBall = Instantiate(_ball, transform.position, new Quaternion(0,0,0,0));
         NewBall.ballRb.AddForce(-(transform.position - _direction ) * 100);
         Destroy(NewBall, 3);
