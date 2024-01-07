@@ -84,6 +84,7 @@ public class MapGeneration : MonoBehaviour
             {
                 newRoom.transform.position = new Vector2(newRoomPosition.x - 2, newRoomPosition.y - 2) * 11;
                 newRoomSprite.transform.localPosition = new Vector2(newRoomPosition.x - 2, newRoomPosition.y - 2) * 15;
+                newRoomSprite.gameObject.SetActive(false);
                 _spawnedRooms[newRoomPosition.x, newRoomPosition.y] = newRoom;
                 break;
             }

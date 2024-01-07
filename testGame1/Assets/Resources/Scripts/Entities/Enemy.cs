@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
-using static UnityEditor.Recorder.OutputPath;
 
 public class Enemy : MonoBehaviour, IDamageble
 {                                                              
@@ -109,9 +108,21 @@ public class Enemy : MonoBehaviour, IDamageble
     private void FindPlayer(SpriteRenderer EnemySpriteRotate, float EnemySpeed)
     {
        Vector2 PlayerPosition = _player.transform.position;
+
        float Step = Time.deltaTime * EnemySpeed; // скорость передвижения врага к игроку 
+       float MoveDirectionX = PlayerPosition.x - transform.position.x;
+       float MoveDirectionY = PlayerPosition.y - transform.position.y;
+
        EnemySpriteRotate.flipX = true ? PlayerPosition.x < transform.localPosition.x : false;
-       gameObject.transform.position = Vector2.MoveTowards(transform.position, PlayerPosition, Step);
+
+       MoveDirectionX = Mathf.Clamp(MoveDirectionX, -1, 1);
+       MoveDirectionY = Mathf.Clamp(MoveDirectionY, -1, 1);
+       MoveDirectionX = Mathf.FloorToInt(MoveDirectionX);
+       MoveDirectionY = Mathf.FloorToInt(MoveDirectionY);
+
+
+       transform.position += new Vector3(MoveDirectionX, MoveDirectionY) * Step;
+        
     }
 
     private bool EnemyAttack(float EnemyAttackDamage, Player Player, bool AttackZone)

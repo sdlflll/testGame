@@ -11,7 +11,7 @@ public class Player : MonoBehaviour, IDamageble
 
     public InputAction playerMainControls;
     public Inventory Inventory;
-    public GameObject visibleItem;
+    public Item visibleItem;
     private float _playerHealth = 100;
     private bool _toTake;
 
@@ -58,25 +58,26 @@ public class Player : MonoBehaviour, IDamageble
     private void OnTake()
     {
         if (!_toTake && !visibleItem) return;
+
         for (int j = 0; j < Inventory.Slots.Length; j++)
         {
             if (Inventory.IsFull[j] == false)
             {
-                GameObject ObjectPrefab = visibleItem.GetComponent<Item>().objectPrefab;
+                GameObject ObjectPrefab = visibleItem.objectPrefab;
                 Inventory.Slots[j] = ObjectPrefab;
                 Inventory.IsFull[j] = true;
                 Inventory.Icons[j] = ObjectPrefab.GetComponent<SpriteRenderer>().sprite;
                 Inventory.SlotsImages[j].GetComponent<Image>().enabled = true;
                 Inventory.SlotsImages[j].GetComponent<Image>().sprite = Inventory.Icons[j];
-                Destroy(visibleItem);
+                Destroy(visibleItem.gameObject);
                 break;
             }
             else
             {
                 print("места нету");
             }
-
         }
+       
     }
 
     private void OnDropItem()
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour, IDamageble
         if (collision.gameObject.tag == "Item" && _toTake == false)
         {
             _toTake = true;
-            visibleItem = collision.gameObject;
+            visibleItem = collision.gameObject.GetComponent<Item>();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

@@ -43,7 +43,7 @@ public class RoomScript : MonoBehaviour
     {
         if(_toSpawnEnemys == false && enemiesCount != -1)
         {
-            EnemyRoomQuest();
+            EnemyRoomHendler();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -86,17 +86,13 @@ public class RoomScript : MonoBehaviour
     {
         Camera.LookAt = LookAt;
         Camera.Follow = LookAt;
+        _room!.mySprite.gameObject.SetActive(true);
         _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.5f);
     }
-    private void OnExitRoom()
-    {
-        _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.15f);
-    }
+   
     private void OnEnterRoom(CinemachineVirtualCamera Camera, Transform LookAt, Enemy Enemy)
     {
-        Camera.LookAt = LookAt;
-        Camera.Follow = LookAt;
-        _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.5f);
+        OnEnterRoom(Camera, LookAt);
         if (_toSpawnEnemys == false) return;
         enemiesCount = Random.Range(3, 6);
         _enemies = new List<Enemy>(enemiesCount);
@@ -119,7 +115,7 @@ public class RoomScript : MonoBehaviour
 
         _toSpawnEnemys = false;
     }
-    private void EnemyRoomQuest()
+    private void EnemyRoomHendler()
     {
         if(enemiesCount == 0)
         {
@@ -134,6 +130,9 @@ public class RoomScript : MonoBehaviour
             _doorDown.doorCollider.enabled = false;
             enemiesCount--;
         }
-        
+    }
+    private void OnExitRoom()
+    {
+        _room.mySprite.canvasRoomImage.color = new Color(1f, 1f, 1f, 0.15f);
     }
 }                                                   

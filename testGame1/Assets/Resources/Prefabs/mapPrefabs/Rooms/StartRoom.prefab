@@ -2927,9 +2927,9 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   - m_RefCount: 2
-    m_Data: {r: 0.876554, g: 0.53105336, b: 0.566109, a: 1}
+    m_Data: {r: 0.94795144, g: 0.55776525, b: 0.59485775, a: 1}
   - m_RefCount: 0
-    m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
+    m_Data: {r: 3.9046e-41, g: 3.9046e-41, b: 3.9046e-41, a: 3.9046e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3348,6 +3348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affa7f1cb7cc8d847a9692028134f2b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesCount: 0
 --- !u!114 &3031613147364459198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3360,6 +3361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6d5e59e5f355c4cb8c7be71d867710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySprite: {fileID: 0}
   doorUp: {fileID: 8587367521880139121}
   doorDown: {fileID: 5795268493899366855}
   doorRight: {fileID: 4624127288911045729}
@@ -3414,7 +3416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 6898899243944284462}
   doorAnimator: {fileID: 0}
-  doorRb: {fileID: 0}
+  doorCollider: {fileID: 0}
 --- !u!1 &4902280420121069194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,7 +3904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 710954209754567619}
   doorAnimator: {fileID: 0}
-  doorRb: {fileID: 0}
+  doorCollider: {fileID: 0}
 --- !u!1 &5930995097503021885
 GameObject:
   m_ObjectHideFlags: 0
@@ -4620,7 +4622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 2641343586099074767}
   doorAnimator: {fileID: 0}
-  doorRb: {fileID: 0}
+  doorCollider: {fileID: 0}
 --- !u!1 &8488882369318539128
 GameObject:
   m_ObjectHideFlags: 0
@@ -4956,7 +4958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 5266989016930734990}
   doorAnimator: {fileID: 0}
-  doorRb: {fileID: 0}
+  doorCollider: {fileID: 0}
 --- !u!1 &9122164394750554271
 GameObject:
   m_ObjectHideFlags: 0
