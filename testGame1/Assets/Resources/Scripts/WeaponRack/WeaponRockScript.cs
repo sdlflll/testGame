@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class WeaponRockScript : MonoBehaviour
 {
-    private Weapon Weapon;
+    private Item item;
+    private SpriteRenderer placeForItem;
+
+    private void Start()
+    {
+        placeForItem = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
+
+    private void chooseItem()
+    {
+               
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
