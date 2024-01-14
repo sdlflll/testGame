@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 334865660752398229}
   doorAnimator: {fileID: 0}
-  doorCollider: {fileID: 0}
+  doorRb: {fileID: 0}
 --- !u!1 &3003505460587812201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,7 +1794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affa7f1cb7cc8d847a9692028134f2b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesCount: 0
 --- !u!114 &3031613147364459198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1807,7 +1806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6d5e59e5f355c4cb8c7be71d867710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySprite: {fileID: 0}
   doorUp: {fileID: 6511812825760925611}
   doorDown: {fileID: 3407779913048319005}
   doorRight: {fileID: 8897610201605872524}
@@ -1862,7 +1860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 1786532542750983218}
   doorAnimator: {fileID: 0}
-  doorCollider: {fileID: 0}
+  doorRb: {fileID: 0}
 --- !u!1 &3617627294997052408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3273,9 +3271,9 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   - m_RefCount: 0
-    m_Data: {r: 3.9264e-41, g: 3.9264e-41, b: 3.9264e-41, a: 3.9264e-41}
+    m_Data: {r: 8.7626e-41, g: 8.7626e-41, b: 8.7626e-41, a: 8.7626e-41}
   - m_RefCount: 2
-    m_Data: {r: 0.91234845, g: 0.4280546, b: 0.49351174, a: 1}
+    m_Data: {r: 0.80430424, g: 0.35464117, b: 0.4537627, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3765,7 +3763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 8606034538228757455}
   doorAnimator: {fileID: 0}
-  doorCollider: {fileID: 0}
+  doorRb: {fileID: 0}
 --- !u!1 &6700394423094741104
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,7 +4211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorSprite: {fileID: 4793393287865458979}
   doorAnimator: {fileID: 0}
-  doorCollider: {fileID: 0}
+  doorRb: {fileID: 0}
 --- !u!1 &8953904955198833761
 GameObject:
   m_ObjectHideFlags: 0

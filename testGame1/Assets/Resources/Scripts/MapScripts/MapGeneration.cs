@@ -16,13 +16,9 @@ public class MapGeneration : MonoBehaviour
 
     private Transform _grid;
 
-    private int _roomCount;
-    private int _roomQuantity;
-
 
     private void Start()
     {
-        _roomQuantity = Random.Range(5, 13);
         _canvas = FindObjectOfType<CanvasMapGeneration>();
         _spawnedRooms = new RoomsData[5, 5];
         _grid = GameObject.FindGameObjectWithTag("Grid").transform;
@@ -34,7 +30,7 @@ public class MapGeneration : MonoBehaviour
         StartRoom.mySprite = StartRoomSprite;
 
         _spawnedRooms[2, 2] = StartRoom;
-        for (int i = 0; i < _roomQuantity; i++)
+        for (int i = 0; i < Random.RandomRange(4,7); i++)
         {
             PlaceOneRoom();
         }
@@ -43,7 +39,6 @@ public class MapGeneration : MonoBehaviour
 
     private void PlaceOneRoom()
     {
-        _roomCount++;
         HashSet<Vector2Int> vacantPlaces1 = new HashSet<Vector2Int>();
         HashSet<Vector2Int> vacantSpritePlaces = new HashSet<Vector2Int>();
         for(int x = 0; x < _spawnedRooms.GetLength(0); x++)
@@ -75,7 +70,7 @@ public class MapGeneration : MonoBehaviour
                 } ;
             }
         }
-        RoomsData newRoom = Instantiate(RoomLogic(_roomCount), transform.parent = _grid);
+        RoomsData newRoom = Instantiate(Random.Range(0, 8) > 2 ? enemyRoom : room, transform.parent = _grid);
         CanvasRoomSprite newRoomSprite = Instantiate(_roomSprite, transform.parent = _canvas.canvas);
         newRoomSprite.spriteRoomType = newRoom.roomType;
         newRoom.mySprite = newRoomSprite;
@@ -93,18 +88,6 @@ public class MapGeneration : MonoBehaviour
                 _spawnedRooms[newRoomPosition.x, newRoomPosition.y] = newRoom;
                 break;
             }
-        }
-    }
-
-    private RoomsData RoomLogic(int roomCount)
-    {
-       if(roomCount == _roomQuantity - 2)
-        {
-            return weaponRoom;
-        }
-        else
-        {
-            return Random.Range(0, 8) > 2 ? enemyRoom : room;
         }
     }
 
