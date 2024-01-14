@@ -9,8 +9,6 @@ public class PlayerAttack : MonoBehaviour
     public float attackDuration;
     public float attackRadius;
     public float attackDamage;
-    private Collider2D[] _objectsOnCircle;
-    private PlayerMove _playerMove;
     private Vector3 _direction;
 
 
@@ -18,7 +16,6 @@ public class PlayerAttack : MonoBehaviour
     {
         attackDamage = 20;
         attackRadius = 0.3f;
-        _playerMove = GetComponent<PlayerMove>();
     }
     private void FixedUpdate()
     {
@@ -29,37 +26,11 @@ public class PlayerAttack : MonoBehaviour
         if (attackDuration <= 0.5f ) return;
         attackDuration = 0;
         OnAttackEvent.Invoke();
-        _direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
-        Vector2 shootDirection = new Vector2(inputX, inputY).normalized;
-        Ball NewBall = Instantiate(_ball, transform.position, new Quaternion(0,0,0,0));
-        NewBall.ballRb.AddForce(-(transform.position - _direction ) * 100);
-        Destroy(NewBall, 3);
-
-
-
-
-
-        /* if (_playerMove.direction.x > 1)
-         {
-             _objectsOnCircle = Physics2D.OverlapCircleAll(new Vector2(transform.position.x + 0.5f, transform.position.y), attackRadius);
-         }
-         else
-         {
-             _objectsOnCircle = Physics2D.OverlapCircleAll(new Vector2(transform.position.x - 0.5f, transform.position.y), attackRadius);
-         }
-         for (int i = 0; i < _objectsOnCircle.Length; i++) //цикл проверяет все элементы в массиве objectsOnCircle, далее делает проверку на имения у елемента массива компонента "Enemy", если условие выплняется, то призывается функция GetDamage
-         {
-             print(_objectsOnCircle[i].gameObject.name);
-
-             if (_objectsOnCircle[i].gameObject.GetComponent<Enemy>() && _objectsOnCircle[i].isTrigger == false)
-             {
-                 print(attackDamage);
-                 _objectsOnCircle[i].GetComponent<Enemy>().GetDamage(attackDamage);
-             }
-         }*/
-
+        _direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position ;
+        float X = Mathf.FloorToInt(_direction.x);
+        float Y = Mathf.FloorToInt(_direction.y);
+        Vector2 Direction = new Vector2(X, Y).normalized;
+        Ball NewBall = Instantiate(_ball, transform.position, Quaternion.identity);
+        if(Direction != Vector2.zero) NewBall.ballRb.AddForce(Direction * 10, ForceMode2D.Impulse);
     }
-
 }
