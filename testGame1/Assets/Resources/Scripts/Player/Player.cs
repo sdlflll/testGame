@@ -1,30 +1,29 @@
+using Cinemachine;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageble
 {
     public UnityEvent onDamagePlayerEvent = new UnityEvent();
 
-    public InputAction playerMainControls;
-    public Inventory Inventory;
-    public Item visibleItem;
+    private Inventory _inventory;
+    private Item _visibleItem;
     private float _playerHealth = 100;
     private bool _toTake;
+    private HealthBar _healthBar;
+    private PlayableDirector _deathTimeline;
 
-                                    
     public float Health => _playerHealth;
 
     private void Awake()
     {
-        Inventory = FindObjectOfType<Inventory>();
-    }
-    private void FixedUpdate()
-    {
-       
+        _deathTimeline = GetComponent<PlayableDirector>();
+        _inventory = FindObjectOfType<Inventory>();
+        _healthBar = FindObjectOfType<HealthBar>();
     }
 
     public void GetDamage(float Damage)
@@ -32,44 +31,45 @@ public class Player : MonoBehaviour, IDamageble
         onDamagePlayerEvent.Invoke();
         _playerHealth -= Damage;
         HealthHandler();
+        _healthBar.HealthBarHandler();
     }
 
     private void OnInventoryMeneger()
     {
-        Inventory.SlotsMenegerInt++;
-        if(Inventory.SlotsMenegerInt > 2)
+        _inventory.SlotsMenegerInt++;
+        if(_inventory.SlotsMenegerInt > 2)
         {
-            Inventory.SlotsMenegerInt = 0;
+            _inventory.SlotsMenegerInt = 0;
         }
-        switch(Inventory.SlotsMenegerInt)
+        switch(_inventory.SlotsMenegerInt)
         {
             case 0:
-                Inventory.SelectWrapper.transform.DOLocalMoveY(65, 0.3f);
+                _inventory.SelectWrapper.transform.DOLocalMoveY(65, 0.3f);
                 break;
             case 1:
-                Inventory.SelectWrapper.transform.DOLocalMoveY(-0, 0.3f);
+                _inventory.SelectWrapper.transform.DOLocalMoveY(-0, 0.3f);
                 break;
             case 2:
-                Inventory.SelectWrapper.transform.DOLocalMoveY(-65, 0.3f);
+                _inventory.SelectWrapper.transform.DOLocalMoveY(-65, 0.3f);
                 break;
         }
     }
 
     private void OnTake()
     {
-        if (!_toTake && !visibleItem) return;
+        if (!_toTake && !_visibleItem) return;
 
-        for (int j = 0; j < Inventory.Slots.Length; j++)
+        for (int j = 0; j < _inventory.Slots.Length; j++)
         {
-            if (Inventory.IsFull[j] == false)
+            if (_inventory.IsFull[j] == false)
             {
-                GameObject ObjectPrefab = visibleItem.objectPrefab;
-                Inventory.Slots[j] = ObjectPrefab;
-                Inventory.IsFull[j] = true;
-                Inventory.Icons[j] = ObjectPrefab.GetComponent<SpriteRenderer>().sprite;
-                Inventory.SlotsImages[j].GetComponent<Image>().enabled = true;
-                Inventory.SlotsImages[j].GetComponent<Image>().sprite = Inventory.Icons[j];
-                Destroy(visibleItem.gameObject);
+                GameObject ObjectPrefab = _visibleItem.objectPrefab;
+                _inventory.Slots[j] = ObjectPrefab;
+                _inventory.IsFull[j] = true;
+                _inventory.Icons[j] = ObjectPrefab.GetComponent<SpriteRenderer>().sprite;
+                _inventory.SlotsImages[j].GetComponent<Image>().enabled = true;
+                _inventory.SlotsImages[j].GetComponent<Image>().sprite = _inventory.Icons[j];
+                Destroy(_visibleItem.gameObject);
                 break;
             }
             else
@@ -82,14 +82,14 @@ public class Player : MonoBehaviour, IDamageble
 
     private void OnDropItem()
     {
-        if (Inventory.IsFull[Inventory.SlotsMenegerInt] == true)
+        if (_inventory.IsFull[_inventory.SlotsMenegerInt] == true)
         {
-            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt].GetComponent<Item>().objectPrefab, gameObject.transform.position, new Quaternion(0,0,0,0));
-            Inventory.Slots[Inventory.SlotsMenegerInt] = null;
-            Inventory.Icons[Inventory.SlotsMenegerInt] = null;
-            Inventory.IsFull[Inventory.SlotsMenegerInt] = false;
-            Inventory.SlotsImages[Inventory.SlotsMenegerInt].GetComponent<Image>().sprite = null;
-            Inventory.SlotsImages[Inventory.SlotsMenegerInt].GetComponent<Image>().enabled = false;
+            Instantiate(_inventory.Slots[_inventory.SlotsMenegerInt].GetComponent<Item>().objectPrefab, gameObject.transform.position, new Quaternion(0,0,0,0));
+            _inventory.Slots[_inventory.SlotsMenegerInt] = null;
+            _inventory.Icons[_inventory.SlotsMenegerInt] = null;
+            _inventory.IsFull[_inventory.SlotsMenegerInt] = false;
+            _inventory.SlotsImages[_inventory.SlotsMenegerInt].GetComponent<Image>().sprite = null;
+            _inventory.SlotsImages[_inventory.SlotsMenegerInt].GetComponent<Image>().enabled = false;
         }
     }
 
@@ -98,8 +98,24 @@ public class Player : MonoBehaviour, IDamageble
         if(Health <= 0)
         {
             _playerHealth = 0;
-            Destroy(gameObject);
+            _deathTimeline.Play();
         }
+    }
+
+    public void Death()
+    {
+        Destroy(gameObject);
+    }
+    public void UnplugPlayerMove()
+    {
+        CinemachineVirtualCamera Camera = FindObjectOfType<CinemachineVirtualCamera>();
+        PlayerMove PlayerMove = GetComponent<PlayerMove>();
+        PlayerMove.rb.bodyType = RigidbodyType2D.Static;
+        PlayerMove.enabled = false;
+        Camera.Follow = gameObject.transform;
+        Camera.LookAt = gameObject.transform;
+        Camera.m_Lens.OrthographicSize = 1.5f;
+
     }
 
 
@@ -111,7 +127,7 @@ public class Player : MonoBehaviour, IDamageble
         if (collision.gameObject.tag == "Item" && _toTake == false)
         {
             _toTake = true;
-            visibleItem = collision.gameObject.GetComponent<Item>();
+            _visibleItem = collision.gameObject.GetComponent<Item>();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -119,7 +135,7 @@ public class Player : MonoBehaviour, IDamageble
         if (collision.gameObject.tag == "Item" && _toTake == true)
         {
             _toTake = false;
-            visibleItem = null;
+            _visibleItem = null;
         }
     }
 

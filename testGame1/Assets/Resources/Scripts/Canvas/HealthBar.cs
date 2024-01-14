@@ -12,12 +12,7 @@ public class HealthBar : MonoBehaviour
      _player = FindObjectOfType<Player>();
     }
 
-    void FixedUpdate()
-    {
-        HealthBarHandler();
-    }
-
-    private void HealthBarHandler()
+    public void HealthBarHandler()
     {
         _healthBarSlider.value = _player.Health / 100;
     }

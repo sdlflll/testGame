@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
 
     public Vector2 direction => _direction; 
 
+    public Rigidbody2D rb => _rb;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
