@@ -84,12 +84,21 @@ public class Player : MonoBehaviour, IDamageble
     {
         if (_inventory.IsFull[_inventory.SlotsMenegerInt] == true)
         {
+<<<<<<< HEAD
             Instantiate(_inventory.Slots[_inventory.SlotsMenegerInt].GetComponent<Item>().objectPrefab, gameObject.transform.position, new Quaternion(0,0,0,0));
             _inventory.Slots[_inventory.SlotsMenegerInt] = null;
             _inventory.Icons[_inventory.SlotsMenegerInt] = null;
             _inventory.IsFull[_inventory.SlotsMenegerInt] = false;
             _inventory.SlotsImages[_inventory.SlotsMenegerInt].GetComponent<Image>().sprite = null;
             _inventory.SlotsImages[_inventory.SlotsMenegerInt].GetComponent<Image>().enabled = false;
+=======
+            Instantiate(Inventory.Slots[Inventory.SlotsMenegerInt], gameObject.transform.position, new Quaternion(0,0,0,0));
+            Inventory.Slots[Inventory.SlotsMenegerInt] = null;
+            Inventory.Icons[Inventory.SlotsMenegerInt] = null;
+            Inventory.IsFull[Inventory.SlotsMenegerInt] = false;
+            Inventory.SlotsImages[Inventory.SlotsMenegerInt].GetComponent<Image>().sprite = null;
+            Inventory.SlotsImages[Inventory.SlotsMenegerInt].GetComponent<Image>().enabled = false;
+>>>>>>> origin/main
         }
     }
 
