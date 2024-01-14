@@ -2927,9 +2927,17 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   - m_RefCount: 2
+<<<<<<< HEAD
     m_Data: {r: 0.83120763, g: 0.4479499, b: 0.5492951, a: 1}
+=======
+<<<<<<< HEAD
+    m_Data: {r: 0.83120763, g: 0.4479499, b: 0.5492951, a: 1}
+=======
+    m_Data: {r: 0.72804755, g: 0.3857157, b: 0.4309559, a: 1}
+>>>>>>> origin/main
+>>>>>>> 13baa4e7b3f4cb7d21b49c23356d1164f78bf7f9
   - m_RefCount: 0
-    m_Data: {r: 3.9046e-41, g: 3.9046e-41, b: 3.9046e-41, a: 3.9046e-41}
+    m_Data: {r: 3.909e-41, g: 3.909e-41, b: 3.909e-41, a: 3.909e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
